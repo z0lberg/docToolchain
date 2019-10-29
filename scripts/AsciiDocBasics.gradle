@@ -9,14 +9,14 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
+        classpath 'org.asciidoctor:asciidoctor-gradle-jvm:2.3.0'
     }
 }
 import org.asciidoctor.gradle.AsciidoctorTask
 
 configurations.all {
     resolutionStrategy {
-        force 'org.codehaus.groovy:groovy-all:2.4.12'
+       // force 'org.codehaus.groovy:groovy-all:2.4.12'
     }
 }
 
@@ -51,7 +51,7 @@ ext {
 
 
 dependencies {
-    asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.15'
+    asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-beta.6'
     // carefull!
     // asciidoctor 1.5.6 needs diagram 1.5.4.1
     // but then reveal.js is broken...
@@ -59,9 +59,6 @@ dependencies {
     asciidoctor 'org.asciidoctor:asciidoctorj-diagram:1.5.8'
 }
 
-asciidoctorj {
-    version = '1.5.4'
-}
 
 //tag::AsciidoctorTask[]
 
@@ -81,7 +78,7 @@ tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
     sourceDir = file(srcDir)
 
     attributes  \
-            'pdf-stylesdir': "${pdfThemeDir}@",
+            'pdf-stylesdir': "${pdfThemeDir}@".toString(),
             'pdf-style': 'custom@',
             'source-highlighter': 'coderay@',
             'imagesdir': 'images@',
@@ -153,7 +150,9 @@ task generatePDF (
         description: 'use pdf as asciidoc backend') {
 
     attributes \
-        'plantUMLDir'         : file("${docDir}/${config.outputPath}/images/plantUML/").path
+            'pdf-stylesdir': "${pdfThemeDir}@".toString(),
+            'pdf-style': 'custom@',
+            'plantUMLDir'         : file("${docDir}/${config.outputPath}/images/plantUML/").path
 
     onlyIf {
         !sourceFiles.findAll {
@@ -248,3 +247,10 @@ task generateDeck (
 }
 //end::generateDeck[]
 
+asciidoctor {
+    // Add requirement on Ruby extension.
+    println "*"*180
+    println new File('./lib/hyphenation.rb').canonicalPath
+    println new File('./lib/hyphenation.rb').text
+    requires './lib/hyphenation.rb'
+}

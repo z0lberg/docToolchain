@@ -2,9 +2,9 @@ title_page:
   align: left
 
 page:
-  layout: portrait
+  layout: landscape
   margin: [0.75in, 1in, 0.75in, 1in]
-  size: A4
+  size: A6
 font:
   catalog:
     # Noto Serif supports Latin, Latin-1 Supplement, Latin Extended-A, Greek, Cyrillic, Vietnamese & an assortment of symbols
