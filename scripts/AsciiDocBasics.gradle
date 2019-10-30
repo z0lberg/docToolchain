@@ -246,11 +246,3 @@ task generateDeck (
     }
 }
 //end::generateDeck[]
-
-asciidoctor {
-    // Add requirement on Ruby extension.
-    println "*"*180
-    println new File('./lib/hyphenation.rb').canonicalPath
-    println new File('./lib/hyphenation.rb').text
-    requires './lib/hyphenation.rb'
-}
