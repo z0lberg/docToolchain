@@ -33,7 +33,7 @@ https://doctoolchain.github.io/docToolchain/tests/[Integration Test Results], ht
 
 This project exists thanks to all the people who contribute!
 
-image::https://opencollective.com/doctoolchain/contributors.svg?button=false[]
+image::https://opencollective.com/doctoolchain/contributors.svg?width=600&button=false[Interactive,600,opts=interactive]
 
 See also the https://doctoolchain.github.io/docToolchain/#_acknowledgements_and_contributors[list of contributors] from the docs.
 
