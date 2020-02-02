@@ -29,7 +29,7 @@ logger.info "docToolchain> docDir: ${docDir}"
 logger.info "docToolchain> mainConfigFile: ${mainConfigFile}"
 logger.info "docToolchain> pdfThemeDir: ${pdfThemeDir}"
 def configSlurper = new ConfigSlurper()
-configSlurper.setBinding([inputPath: inputPath])
+//configSlurper.setBinding([inputPath: inputPath])
 config = configSlurper.parse(new File(docDir, mainConfigFile).text)
 inputPath = config.inputPath?config.inputPath:'.'
 logger.info "docToolchain> inputPath: ${inputPath}"
@@ -94,6 +94,7 @@ tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
     )
 
     // Here we can add the code for extensions we write.
+    /**
     extensions {
         inlinemacro (name: "jira") {
             parent, target, attributes ->
@@ -107,7 +108,7 @@ tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
                 createInline(parent, "anchor", target, attributes, options).render()
         }
     }
-
+    **/
     // good to see what the build is doing...
     logDocuments = true
 
