@@ -4,7 +4,7 @@ outputPath = 'build/docs'
 // This path is appended to the docDir property specified in gradle.properties
 // or in the command line, and therefore must be relative to it.
 
-//inputPath = 'src/docs' => moved to gradle.properties!
+inputPath = 'src/docs';
 
 
 inputFiles = [
@@ -57,7 +57,7 @@ confluence = [:]
 // Attributes
 // - 'file': absolute or relative path to the asciidoc generated html file to be exported
 // - 'url': absolute URL to an asciidoc generated html file to be exported
-// - 'ancestorId' (optional): the id of the parent page in Confluence; leave this empty
+// - 'ancestorId' (optional): the id of the parent page in Confluence as string; leave this empty
 //                            if a new parent shall be created in the space
 // - 'preambleTitle' (optional): the title of the page containing the preamble (everything
 //                            before the first second level heading). Default is 'arc42'
@@ -83,6 +83,9 @@ confluence.with {
     // the key of the confluence space to write to
     spaceKey = 'asciidoc'
 
+    // the title of the page containing the preamble (everything the first second level heading). Default is 'arc42'
+    preambleTitle = ''
+
     // variable to determine whether ".sect2" sections shall be split from the current page into subpages
     createSubpages = false
 
@@ -105,5 +108,9 @@ confluence.with {
     // added
     // extraPageContent = '<ac:structured-macro ac:name="warning"><ac:parameter ac:name="title" /><ac:rich-text-body>This is a generated page, do not edit!</ac:rich-text-body></ac:structured-macro>
     extraPageContent = ''
+
+    // Optional proxy configuration, only used to access Confluence
+    // schema supports http and https
+    // proxy = [host: 'my.proxy.com', port: 1234, schema: 'http']
 }
 //end::confluenceConfig[]

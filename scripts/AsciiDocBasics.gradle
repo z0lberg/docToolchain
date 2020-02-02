@@ -9,7 +9,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'org.asciidoctor:asciidoctor-gradle-jvm:2.3.0'
+        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
     }
 }
 repositories {
@@ -17,19 +17,13 @@ repositories {
 }
 import org.asciidoctor.gradle.AsciidoctorTask
 
-configurations.all {
-    resolutionStrategy {
-       // force 'org.codehaus.groovy:groovy-all:2.4.12'
-    }
-}
-
 // configuration
 def config
 if (docDir.startsWith('.')) {
     docDir = new File(projectDir, docDir).canonicalPath
 }
 if (pdfThemeDir.startsWith('.')) {
-    pdfThemeDir = new File(projectDir, pdfThemeDir).canonicalPath
+    pdfThemeDir = new File(docDir, pdfThemeDir).canonicalPath
 }
 logger.info "docToolchain> docDir: ${docDir}"
 logger.info "docToolchain> mainConfigFile: ${mainConfigFile}"
@@ -37,9 +31,12 @@ logger.info "docToolchain> pdfThemeDir: ${pdfThemeDir}"
 def configSlurper = new ConfigSlurper()
 configSlurper.setBinding([inputPath: inputPath])
 config = configSlurper.parse(new File(docDir, mainConfigFile).text)
+inputPath = config.inputPath?config.inputPath:'.'
 logger.info "docToolchain> inputPath: ${inputPath}"
 logger.info "docToolchain> inputFiles: ${config.inputFiles}"
 logger.info "docToolchain> outputPath: ${config.outputPath}"
+referenceDocFile = config.referenceDocFile?config.referenceDocFile:''
+logger.info "docToolchain> referenceDocFile: ${referenceDocFile}"
 
 ext {
     srcDir  = "${docDir}/${inputPath}"
@@ -82,6 +79,7 @@ tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
     attributes  (
             'pdf-stylesdir': "${pdfThemeDir}@".toString(),
             'pdf-style': 'custom@',
+    //        'pdf-fontsdir': "${docDir}/fonts",
             'source-highlighter': 'coderay@',
             'imagesdir': 'images@',
             'toc': 'left@',
@@ -94,7 +92,7 @@ tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
             'targetDir'           : targetDir,
             'revnumber'           : '-@'
     )
-    
+
     // Here we can add the code for extensions we write.
     extensions {
         inlinemacro (name: "jira") {
@@ -140,6 +138,7 @@ task generateHTML (
             'html' in it.formats
         }.each {
             include it.file
+            println it.file
         }
     }
 
@@ -219,7 +218,7 @@ task generateDeck (
             'revealjs_history': 'true',
             'revealjs_slideNumber': 'true'
     )
-    options template_dirs : [new File('resources/asciidoctor-reveal.js','templates/slim').absolutePath ]
+    options template_dirs : [new File(new File (projectDir,'/resources/asciidoctor-reveal.js'),'templates/slim').absolutePath ]
 
     onlyIf {
         !sourceFiles.findAll {
@@ -250,3 +249,4 @@ task generateDeck (
     }
 }
 //end::generateDeck[]
+
