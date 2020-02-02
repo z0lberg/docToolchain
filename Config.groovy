@@ -9,6 +9,7 @@ outputPath = 'build/docs'
 
 inputFiles = [
         [file: 'manual.adoc',       formats: ['html','pdf']],
+        [file: 'demo.adoc',       formats: ['html','pdf']],
 ]
 
 
