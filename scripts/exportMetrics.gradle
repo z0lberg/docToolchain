@@ -3,7 +3,7 @@ import static groovy.io.FileType.*
 
 task exportMetrics(
         description: 'exports some metrics for your texts',
-        group: 'docToolchain'
+        group: 'docToolchain helper'
 ) {
     doLast {
         File sourceFolder = new File("${docDir}/${inputPath}")
