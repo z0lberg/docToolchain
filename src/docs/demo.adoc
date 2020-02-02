@@ -1,0 +1,36 @@
+== Demo-Doc
+
+This file is to demonstrate some features which are not available in the docs.
+
+=== mark missing alt tags
+
+A little CSS-Style can mark all images without `alt`-tag as blurred:
+
+[source,css]
+----
+img:not([alt]) {
+  filter: blur(5px) !important;
+}
+----
+
+++++
+<style>
+img:not([alt]) {
+  filter: blur(5px) !important;
+}
+</style>
+++++
+
+=== Mindmaps
+
+this feature needs a newer version of the AsciiDoc-Diagram plugin.
+[plantuml,"mindmap-demo",png]
+----
+@startmindmap
+* Center
+** first though
+** second though
+-- left
+--- far left
+@endmindmap
+----
