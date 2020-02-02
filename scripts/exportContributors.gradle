@@ -39,7 +39,7 @@ task exportContributors(
                     "image:http://www.gravatar.com/avatar/" +
                             md5(it[1].toLowerCase().trim()) +
                             "?d=identicon" +
-                            "[32,32,role='gravatar',alt='${it[0]}',title='${it[0]}']"
+                            "[alt=${it[0]},32,32,role='gravatar',title='${it[0]}']"
                 }.join(" ")
                 def tag = (file.canonicalPath - sourceFolder.canonicalPath).replace("\\", "/").replaceAll("^/", "")
                 def targetFile = new File(targetDir, "/contributors/" + tag)
