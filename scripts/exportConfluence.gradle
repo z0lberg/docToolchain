@@ -1,0 +1,31 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
+    dependencies {
+        //for the exportJiraIssues Task
+        classpath 'org.codehaus.groovy.modules.http-builder:http-builder:0.6'
+        //for the renderToConfluence Task
+        classpath 'org.apache.httpcomponents:httpmime:4.5.1'
+        classpath 'org.jsoup:jsoup:1.9.1'
+    }
+}
+
+//tag::exportConfluence[]
+task exportConfluence(
+        description: 'exports confluence pages to AsciiDoc',
+        group: 'docToolchain'
+) {
+    doLast {
+        logger.info("docToolchain> docDir: "+docDir)
+        def config = new ConfigSlurper().parse(new File(docDir, mainConfigFile).text)
+        binding.setProperty('config',config)
+        binding.setProperty('docDir',docDir)
+        evaluate(new File(projectDir, 'scripts/confluence2asciidoc.groovy'))
+    }
+}
+
+//end::exportConfluence[]
