@@ -12,6 +12,9 @@ buildscript {
         classpath 'org.asciidoctor:asciidoctor-gradle-jvm:2.3.0'
     }
 }
+repositories {
+    jcenter()
+}
 import org.asciidoctor.gradle.AsciidoctorTask
 
 configurations.all {
@@ -51,12 +54,12 @@ ext {
 
 
 dependencies {
-    asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-beta.8'
+    asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-rc.2'
     // carefull!
     // asciidoctor 1.5.6 needs diagram 1.5.4.1
     // but then reveal.js is broken...
     // https://github.com/asciidoctor/asciidoctor-diagram/issues/161
-    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:1.5.8'
+    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:2.0.1'
 }
 
 
@@ -150,11 +153,11 @@ task generatePDF (
         group: 'docToolchain',
         description: 'use pdf as asciidoc backend') {
 
-    attributes \
+    attributes (
             'pdf-stylesdir': "${pdfThemeDir}@".toString(),
             'pdf-style': 'custom@',
             'plantUMLDir'         : file("${docDir}/${config.outputPath}/images/plantUML/").path
-
+    )
     onlyIf {
         !sourceFiles.findAll {
             'pdf' in it.formats
@@ -203,7 +206,7 @@ task generateDeck (
         group: 'docToolchain',
         description: 'use revealJs as asciidoc backend to create a presentation') {
 
-    attributes \
+    attributes (
             'plantUMLDir'  : '',
             'idprefix': 'slide-',
             'idseparator': '-',
@@ -215,7 +218,7 @@ task generateDeck (
             'revealjs_transition': 'linear',
             'revealjs_history': 'true',
             'revealjs_slideNumber': 'true'
-
+    )
     options template_dirs : [new File('resources/asciidoctor-reveal.js','templates/slim').absolutePath ]
 
     onlyIf {
