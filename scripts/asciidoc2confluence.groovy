@@ -833,11 +833,18 @@ config.confluence.input.each { input ->
         dom.outputSettings().charset("UTF-8"); //does no harm :-)
 
         // if ancestorName is defined try to find machingAncestorId in confluence
-        def retrievedAncestorId
+        def retrievedAncestorId  
+
+        //ancestorName for concreat file have priority
         if (input.ancestorName) {
             // Retrieve a page id by name
             retrievedAncestorId = retrievePageIdByName(input.ancestorName)
             println("Retrieved pageId for given ancestorName '${input.ancestorName}' is ${retrievedAncestorId}")
+        }
+        else if(config.confluence.ancestorName) {
+            // Retrieve a page id by global name
+            retrievedAncestorId = retrievePageIdByName(config.confluence.ancestorName)
+            println("Retrieved pageId for given global ancestorName '${config.confluence.ancestorName}' is ${retrievedAncestorId}")
         }
 
         // if input does not contain an ancestorName, check if there is ancestorId, otherwise check if there is a global one
