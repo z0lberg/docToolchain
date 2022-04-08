@@ -152,7 +152,7 @@ confluence = [:]
 //                            if a new parent shall be created in the space
 // - 'preambleTitle' (optional): the title of the page containing the preamble (everything
 //                            before the first second level heading). Default is 'arc42'
-//
+// - 'useFileNameConvention' if true filename prefix will be used as ancestorName: "ancestor_name.actualFileName.html". "ancestor_name" will be transformed to the: "ancestor name" 
 // inputHtmlFolder is a folder for bulk process html files
 // The following four keys can also be used in the global section below
 // - 'spaceKey' (optional): page specific variable for the key of the confluence space to write to
@@ -178,6 +178,7 @@ confluence.with {
     // the key of the confluence space to write to
     spaceKey = 'asciidoc'
 
+    useFileNameConvention = false
     // the title of the page containing the preamble (everything the first second level heading). Default is 'arc42'
     preambleTitle = ''
 

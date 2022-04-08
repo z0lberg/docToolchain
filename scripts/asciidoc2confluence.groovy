@@ -834,13 +834,19 @@ config.confluence.input.each { input ->
 
         // if ancestorName is defined try to find machingAncestorId in confluence
         def retrievedAncestorId  
-
-        //ancestorName for concreat file have priority
+        if(config.confluence.useFileNameConvention) {
+            def namesArray = input.file.split("\\.")[0].split("\\/")
+            input.ancestorName = namesArray[namesArray.size()-1]
+            println("Retrieved ancestorName from file name'${input.ancestorName}' ")
+            input.ancestorName = input.ancestorName.replace("_", " ")
+            println("Retrieved ancestorName from file name'${input.ancestorName}' ")
+        }
+         //ancestorName for concreat file have priority
         if (input.ancestorName) {
             // Retrieve a page id by name
             retrievedAncestorId = retrievePageIdByName(input.ancestorName)
             println("Retrieved pageId for given ancestorName '${input.ancestorName}' is ${retrievedAncestorId}")
-        }
+            }
         else if(config.confluence.ancestorName) {
             // Retrieve a page id by global name
             retrievedAncestorId = retrievePageIdByName(config.confluence.ancestorName)
@@ -848,7 +854,8 @@ config.confluence.input.each { input ->
         }
 
         // if input does not contain an ancestorName, check if there is ancestorId, otherwise check if there is a global one
-        def parentId = retrievedAncestorId ?: input.ancestorId ?: config.confluence.ancestorId
+        def parentId = []
+        parentId = retrievedAncestorId ?: input.ancestorId ?: config.confluence.ancestorId
 
         // if parentId is still not set, create a new parent page (parentId = null)
         parentId = parentId ?: null
@@ -921,7 +928,7 @@ config.confluence.input.each { input ->
             println "published to ${config.confluence.api - "rest/api/"}spaces/${confluenceSpaceKey}/pages/${parentId}"
         } else {
             println "published to ${config.confluence.api - "rest/api/"}spaces/${confluenceSpaceKey}"
-        }
+        } 
     }
 }
 ""
