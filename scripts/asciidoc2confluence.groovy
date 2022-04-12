@@ -773,14 +773,11 @@ def getHeaders(){
     println 'Start getting headers'
     def headers
     def env = System.getenv()
-    println 'using env vars: ' + env[config.confluence.bearerToken]
+    println 'using env vars: ' + System.getenv("'" + config.confluence.bearerToken + "'")
     println 'second env var ' + System.getenv('SPACE_KEY')
     println config.confluence.spaceKey 
-    env.each{
-    println it
-    }
 
-    if(env[config.confluence.bearerToken]){
+    if(config.confluence.bearerToken){
         headers = [
                 'Authorization': 'Bearer ' + config.confluence.bearerToken,
                 'X-Atlassian-Token':'no-check'            
