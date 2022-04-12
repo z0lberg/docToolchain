@@ -74,6 +74,8 @@ def MD5(String s) {
     MessageDigest.getInstance("MD5").digest(s.bytes).encodeHex().toString()
 }
 
+def env = System.getenv()
+
 // for getting better error message from the REST-API
 // LuisMuniz: return the action's result, if successful.
 def trythis(Closure action) {
@@ -772,7 +774,8 @@ def retrievePageIdByName = { String name ->
 def getHeaders(){
     println 'Start getting headers'
     def headers
-    if(config.confluence.bearerToken){
+
+    if(env[config.confluence.bearerToken]){
         headers = [
                 'Authorization': 'Bearer ' + config.confluence.bearerToken,
                 'X-Atlassian-Token':'no-check'            
@@ -817,7 +820,7 @@ config.confluence.input.each { input ->
             throw new RuntimeException("config problem")
         }
     //  assignend, but never used in pushToConfluence(...) (fixed here)
-        confluenceSpaceKey = input.spaceKey ?: config.confluence.spaceKey
+        confluenceSpaceKey = input.spaceKey ?: env[config.confluence.spaceKey]
         confluenceCreateSubpages = (input.createSubpages != null) ? input.createSubpages : config.confluence.createSubpages
     //  hard to read in case of using :sectnums: -> so we add a suffix
         confluencePagePrefix = input.pagePrefix ?: config.confluence.pagePrefix
@@ -929,6 +932,6 @@ config.confluence.input.each { input ->
         } else {
             println "published to ${config.confluence.api - "rest/api/"}spaces/${confluenceSpaceKey}"
         } 
-    }
+    } 
 }
 ""
