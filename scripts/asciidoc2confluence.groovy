@@ -774,6 +774,12 @@ def getHeaders(){
     def headers
     def env = System.getenv()
     println 'using env vars: ' + env[config.confluence.bearerToken]
+    println 'second env var ' + System.getenv(config.confluence.spaceKey)
+
+    env.each{
+    println it
+    }
+
     if(env[config.confluence.bearerToken]){
         headers = [
                 'Authorization': 'Bearer ' + config.confluence.bearerToken,
@@ -811,7 +817,7 @@ config.confluence.input.each { input ->
         input.file = "${docDir}/${input.file}"
 
         println "publish ${input.file}"
-        def env = System.getenv()
+        //def env = System.getenv()
         if (input.file ==~ /.*[.](ad|adoc|asciidoc)$/) {
             println "HINT:"
             println "please first convert ${input.file} to html by executing generateHTML"
@@ -819,7 +825,7 @@ config.confluence.input.each { input ->
             throw new RuntimeException("config problem")
         }
     //  assignend, but never used in pushToConfluence(...) (fixed here)
-        confluenceSpaceKey = input.spaceKey ?: env[config.confluence.spaceKey]
+        confluenceSpaceKey = input.spaceKey ?: System.getenv(config.confluence.spaceKey)
         confluenceCreateSubpages = (input.createSubpages != null) ? input.createSubpages : config.confluence.createSubpages
     //  hard to read in case of using :sectnums: -> so we add a suffix
         confluencePagePrefix = input.pagePrefix ?: config.confluence.pagePrefix
