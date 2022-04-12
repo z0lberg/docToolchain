@@ -775,7 +775,7 @@ def getHeaders(){
     def env = System.getenv()
     println 'using env vars: ' + System.getenv("'" + config.confluence.bearerToken + "'")
     println 'second env var ' + System.getenv('SPACE_KEY')
-    println config.confluence.spaceKey 
+    println config.confluence.api 
 
     if(config.confluence.bearerToken){
         headers = [
