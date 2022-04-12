@@ -774,7 +774,7 @@ def retrievePageIdByName = { String name ->
 def getHeaders(){
     println 'Start getting headers'
     def headers
-
+    println 'using env vars: ' + env[config.confluence.bearerToken]
     if(env[config.confluence.bearerToken]){
         headers = [
                 'Authorization': 'Bearer ' + config.confluence.bearerToken,
