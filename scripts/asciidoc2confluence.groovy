@@ -74,8 +74,6 @@ def MD5(String s) {
     MessageDigest.getInstance("MD5").digest(s.bytes).encodeHex().toString()
 }
 
-def env = System.getenv()
-
 // for getting better error message from the REST-API
 // LuisMuniz: return the action's result, if successful.
 def trythis(Closure action) {
@@ -774,6 +772,7 @@ def retrievePageIdByName = { String name ->
 def getHeaders(){
     println 'Start getting headers'
     def headers
+    def env = System.getenv()
     println 'using env vars: ' + env[config.confluence.bearerToken]
     if(env[config.confluence.bearerToken]){
         headers = [
@@ -812,7 +811,7 @@ config.confluence.input.each { input ->
         input.file = "${docDir}/${input.file}"
 
         println "publish ${input.file}"
-
+        def env = System.getenv()
         if (input.file ==~ /.*[.](ad|adoc|asciidoc)$/) {
             println "HINT:"
             println "please first convert ${input.file} to html by executing generateHTML"
