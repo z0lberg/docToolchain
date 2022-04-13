@@ -624,7 +624,7 @@ def pushToConfluence = { pageTitle, pageBody, String parentId, anchors, pageAnch
         ]
     }
 
-    def pages = retrieveAllPages(api, headers, config.confluence.spaceKey)
+    def pages = retrieveAllPages(api, headers, System.getenv(config.confluence.spaceKey))
 
     // println "Suche nach vorhandener Seite: " + pageTitle
     Map existingPage = pages[realTitleLC]
