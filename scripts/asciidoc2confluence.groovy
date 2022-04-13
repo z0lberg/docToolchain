@@ -772,16 +772,10 @@ def retrievePageIdByName = { String name ->
 def getHeaders(){
     println 'Start getting headers'
     def headers
-    def env = System.getenv()
-    println 'using env vars: ' + System.getenv(config.confluence.bearerToken)
-    println 'second env var ' + System.getenv('SPACE_KEY')
-    println config.confluence.api 
-    println config.confluence.bearerToken
-    println config.confluence.spaceKey
 
-    if(config.confluence.bearerToken){
+    if(System.getenv(config.confluence.bearerToken)){
         headers = [
-                'Authorization': 'Bearer ' + config.confluence.bearerToken,
+                'Authorization': 'Bearer ' + System.getenv(config.confluence.bearerToken),
                 'X-Atlassian-Token':'no-check'            
         ]         
          println 'Start using bearer auth'     
