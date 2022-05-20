@@ -797,8 +797,8 @@ if(config.confluence.inputHtmlFolder) {
     println "Starting processing files in folder: " + config.confluence.inputHtmlFolder
     def dir = new File(htmlFolder)
     
-    dir.eachFileRecurse (FILES) { fileName ->
-        if (fileName.isFile()){
+    dir.eachFileMatch(~/.*.html/){ fileName ->
+        if (fileName.isFile() && fileName. ){
             def map = [file: config.confluence.inputHtmlFolder+fileName.getName()]
             config.confluence.input.add(map)
          }
