@@ -794,11 +794,11 @@ def getHeaders(){
 
 if(config.confluence.inputHtmlFolder) {
     htmlFolder = "${docDir}/${config.confluence.inputHtmlFolder}"
-    println "Starting processing files in folder: " + config.confluence.inputHtmlFolder
+    println "Starting processing files in folder!: " + config.confluence.inputHtmlFolder
     def dir = new File(htmlFolder)
     
     dir.eachFileMatch(~/.*.html/){ fileName ->
-        if (fileName.isFile() && fileName. ){
+        if (fileName.isFile()){
             def map = [file: config.confluence.inputHtmlFolder+fileName.getName()]
             config.confluence.input.add(map)
          }
