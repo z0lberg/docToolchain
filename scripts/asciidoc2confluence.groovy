@@ -796,7 +796,7 @@ def getHeaders(){
 
     if(System.getenv(config.confluence.bearerToken)){
         headers = [
-                'Authorization': 'Bearer ' + config.confluence.bearerToken,
+                'Authorization': 'Bearer ' + System.getenv(config.confluence.bearerToken),
                 'X-Atlassian-Token':'no-check'
         ]
          println 'Start using bearer auth'
