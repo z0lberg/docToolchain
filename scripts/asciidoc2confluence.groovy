@@ -904,8 +904,7 @@ config.confluence.input.each { input ->
         if (confluenceAllInOnePage) {
             dom.select('div#content').each { pageBody ->
                 pageBody.select('div.sect2').unwrap()
-                def page = [title   : confluencePreambleTitle ?: "arc42",
-                            body    : pageBody,
+                def page = [body    : pageBody,
                             children: [],
                             parent  : parentId]
                 pages << page
