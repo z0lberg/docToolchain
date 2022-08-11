@@ -6,13 +6,14 @@ outputPath = 'build'
 // This path is appended to the docDir property specified in gradle.properties
 // or in the command line, and therefore must be relative to it.
 
-inputPath = 'src/docs'
+inputPath = 'src/doc'
 pdfThemeDir = './src/docs/pdfTheme'
 
 inputFiles = [
         //[file: 'doctoolchain_demo.adoc',       formats: ['html','pdf']],
         //[file: 'arc42-template.adoc',    formats: ['html','pdf']],
-        [file: 'manual.adoc',    formats: ['html', 'pdf']],
+        [file: '*.adoc',    formats: ['html', 'pdf']],
+         [file: '*.md',    formats: ['adoc','pdf']],
 	/** inputFiles **/
 ]
 
@@ -63,7 +64,7 @@ microsite.with {
     // used in the template for absolute uris
     host='https://localhost'
     // configure a port on which your preview server will run
-    previewPort = 8042
+    previewPort = 8881
 
     //project theme
     //site folder relative to the docs folder
@@ -152,7 +153,7 @@ confluence = [:]
 //                            if a new parent shall be created in the space
 // - 'preambleTitle' (optional): the title of the page containing the preamble (everything
 //                            before the first second level heading). Default is 'arc42'
-// - 'useFileNameConvention' if true filename prefix will be used as ancestorName: "ancestor_name.actualFileName.html". "ancestor_name" will be transformed to the: "ancestor name" 
+//
 // inputHtmlFolder is a folder for bulk process html files
 // The following four keys can also be used in the global section below
 // - 'spaceKey' (optional): page specific variable for the key of the confluence space to write to
@@ -164,26 +165,29 @@ confluence = [:]
 // only 'file' or 'url' is allowed. If both are given, 'url' is ignored
 confluence.with {
     input = [
-            [ file: "build/html5/arc42-template-de.html" ],
+            [ file: "" ],
     ]
 
-    inputHtmlFolder = ''
+    inputHtmlFolder = 'build/html5/'
     // endpoint of the confluenceAPI (REST) to be used
     // to verify the endpoint, add user/current and pate it into your browser
     // you should get a json about your own user
-    api = 'https://[yourServer]/[context]/rest/api/'
+    api = 'https://confluence.heidelbergcement.com/rest/api/'
+
+    ancestorName = ''
+
+    useFileNameConvention = true
 
     //    Additionally, spaceKey, createSubpages, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
 
     // the key of the confluence space to write to
-    spaceKey = 'asciidoc'
+    spaceKey = 'HT'
 
-    useFileNameConvention = false
     // the title of the page containing the preamble (everything the first second level heading). Default is 'arc42'
     preambleTitle = ''
 
     // variable to determine whether ".sect2" sections shall be split from the current page into subpages
-    createSubpages = false
+    createSubpages = true
 
     // the pagePrefix will be a prefix for each page title
     // use this if you only have access to one confluence space but need to store several
@@ -206,7 +210,7 @@ confluence.with {
 
     //optional API-token to be added in case the credentials are needed for user and password exchange.
     //apikey = "[API-token]"
-    bearerToken = '' 
+    bearerToken = 'MzYxMTUwMDI5NTMxOufbrh+/H6aClqUr9IYwnn/5rWOH' 
 
     // HTML Content that will be included with every page published
     // directly after the TOC. If left empty no additional content will be

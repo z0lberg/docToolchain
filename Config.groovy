@@ -25,6 +25,18 @@ taskInputsFiles = []
 
 //*****************************************************************************************
 
+//tag::jbakeConfig[]
+
+//customization of the Jbake gradle plugin used by the generateSite task
+jbake.with {
+    // possibility to configure additional asciidoctorj plugins used by jbake
+    plugins = [ ]
+
+    // possibiltiy to configure additional asciidoctor attributes passed to the jbake task
+    asciidoctorAttributes = [ ]
+}
+//end::jbakeConfig[]
+
 //Configuration for exportChangelog
 
 exportChangelog = [:]
@@ -85,7 +97,7 @@ confluence.with {
     ]
 
     // endpoint of the confluenceAPI (REST) to be used
-    // verfiy that you got the correct endpoint by browsing to 
+    // verfiy that you got the correct endpoint by browsing to
     // https://[yourServer]/[context]/rest/api/user/current
     // you should get a valid json which describes your current user
     // a working example is https://arc42-template.atlassian.net/wiki/rest/api/user/current
@@ -98,6 +110,10 @@ confluence.with {
 
     // the title of the page containing the preamble (everything the first second level heading). Default is 'arc42'
     preambleTitle = ''
+
+    // variable to determine whether the whole document should be uploaded as just one page or split into separate
+    // pages per chapter
+    allInOnePage = false
 
     // variable to determine whether ".sect2" sections shall be split from the current page into subpages
     createSubpages = false
