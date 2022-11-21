@@ -23,7 +23,7 @@ taskInputsDirs = ["${inputPath}/images"]
 
 taskInputsFiles = []
 
-//*****************************************************************************************
+//******************************************************************************************
 
 //tag::jbakeConfig[]
 
@@ -80,6 +80,7 @@ confluence = [:]
 //                             ancestorId will be used as a fallback
 // - 'ancestorId' (optional): the id of the parent page in Confluence as string; leave this empty
 //                            if a new parent shall be created in the space
+//                            Set it for every file so the page scanning is done only for the given ancestor page trees.
 // - 'preambleTitle' (optional): the title of the page containing the preamble (everything
 //                            before the first second level heading). Default is 'arc42'
 //
@@ -332,3 +333,21 @@ sprintChangelog.with {
     allSprintsFilename = 'Sprints_Changelogs' // Extension will be automatically added.
 }
 //end::sprintChangelogConfig[]
+
+
+//tag::collectIncludesConfig[]
+collectIncludes = [:]
+
+collectIncludes.with {
+
+//    fileFilter = "adoc" // define which files are considered. default: "ad|adoc|asciidoc"
+
+//    minPrefixLength = "3" // define what minimum length the prefix. default: "3"
+
+//    maxPrefixLength = "3" // define what maximum length the prefix. default: ""
+
+//    separatorChar = "_" // define the allowed separators after prefix. default: "-_"
+
+//    cleanOutputFolder = true // should the output folder be emptied before generation? defailt: false
+}
+//end::collectIncludesConfig[]
