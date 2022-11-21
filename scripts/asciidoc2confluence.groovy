@@ -937,7 +937,6 @@ config.confluence.input.each { input ->
         if(config.confluence.useFileNameConvention) {
             def namesArray = input.file.split("\\.")[0].split("\\/")
             input.ancestorName = namesArray[namesArray.size()-1]
-            println("Retrieved ancestorName from file name'${input.ancestorName}' ")
             input.ancestorName = input.ancestorName.replace("_", " ")
             println("Retrieved ancestorName from file name'${input.ancestorName}' ")
         }
@@ -974,6 +973,7 @@ config.confluence.input.each { input ->
             println "Keywords:" + keywords
         }
         if (confluenceAllInOnePage) {
+            println("putting all in one page")
             dom.select('div#content').each { pageBody ->
                 pageBody.select('div.sect2').unwrap()
                 def page = [body    : pageBody,
@@ -985,6 +985,7 @@ config.confluence.input.each { input ->
                 anchors.putAll(parseAnchors(page))
             }
         } else {
+             println("putting in several pages")
             // let's try to select the "first page" and push it to confluence
             dom.select('div#preamble div.sectionbody').each { pageBody ->
                 pageBody.select('div.sect2').unwrap()
@@ -996,7 +997,7 @@ config.confluence.input.each { input ->
                 ]
                 pages << preamble
                 sections = preamble.children
-                parentId = null
+                //parentId = null
                 anchors.putAll(parseAnchors(preamble))
             }
             // <div class="sect1"> are the main headings
