@@ -89,6 +89,7 @@ def trythis(Closure action) {
                 throw new Exception("missing authentication credentials")
                 break
             case '400':
+                println (error.response.data.toString().replaceAll("^.*Reason","Reason"))
                 println error.response.data.message
                 println "please check the ancestorId in your config file"
                 throw new Exception("Parent does not exist")
