@@ -754,9 +754,9 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
             }
             deferredUpload = []
             // #324-dierk42: Add keywords as labels to page.
-            if (keywords) {
-                addLabels(page.id, keywords)
-            }
+          //  if (keywords) {
+          //      addLabels(page.id, keywords)
+          //  }
             return page.id
         } else {
             trythis {
@@ -774,9 +774,9 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
             }
             deferredUpload = []
             // #324-dierk42: Add keywords as labels to page.
-            if (keywords) {
-                addLabels(page.id, keywords)
-            }
+          //  if (keywords) {
+           //     addLabels(page.id, keywords)
+          //  }
             return page.id
         }
     } else {
@@ -800,9 +800,9 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
         }
         deferredUpload = []
         // #324-dierk42: Add keywords as labels to page.
-        if (keywords) {
-            addLabels(page?.data?.id, keywords)
-        }
+       // if (keywords) {
+      //      addLabels(page?.data?.id, keywords)
+       // }
         return page?.data?.id
     }
 }
@@ -820,7 +820,8 @@ def parseAnchors = { page ->
 def pushPages
 pushPages = { pages, anchors, pageAnchors, labels ->
     pages.each { page ->
-        println page.title
+        println ("page title: " + page.title)
+        println ("page parent: "  +page.parent)
         def id = pushToConfluence page.title, page.body, page.parent, anchors, pageAnchors, labels
         page.children*.parent = id
         // println "Push children von id " + id
@@ -993,7 +994,7 @@ config.confluence.input.each { input ->
                     title: confluencePreambleTitle ?: "arc42",
                     body: pageBody,
                     children: [],
-                    parent: parentId
+                    parent: ç
                 ]
                 pages << preamble
                 sections = preamble.children
