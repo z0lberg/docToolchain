@@ -994,7 +994,7 @@ config.confluence.input.each { input ->
                     title: confluencePreambleTitle ?: "arc42",
                     body: pageBody,
                     children: [],
-                    parent: ç
+                    parent: parentId
                 ]
                 pages << preamble
                 sections = preamble.children
